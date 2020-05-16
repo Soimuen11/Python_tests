@@ -1,33 +1,53 @@
-from random import randint
-from quotestore import *
+from functions import *
+from tkinter import *
+from tkinter import ttk
 
-options = [
-        {1: "Star Wars"},
-        {2: "Game of Thrones"}
-    ]
-print(options)
-user_choice = int(input("Hello user ! Which movie quotes are you in the mood for: "))
-# if not a number, throw back an error
+window = Tk()
 
-def all_quotes():
-    i = 0
-    for quote in got_quotes:
-        # print(got_quotes[i])
-        print("Quote: ", quote["quote"])
-        print("---------------------------")
-        print("Author: ", quote["author"])
-        i+=1
-        print("Id: ", i)
-        print("<=============END OUTPUT================>")
+# creating a label
+label_area = Label(window, text="Game of Thrones Quotes Generator")
+# printing said label into newly created window
+label_area.pack()
 
-def rand_quote():
-    rand = randint(1, len(got_quotes))
-    print(got_quotes[rand])
-    print("Id: ", rand)
+options = Listbox(window)
+options.pack()
+options.insert(END, "One Random Quote")
+options.insert(END, "All quotes")
 
-#what type of quotes do you want ?
-#star wars ? game of thrones ?
-#how many quotes do you want ?
-#show them all ?
-#generate one randomly ?
-#functions ?
+
+text_area = StringVar()
+textline = Entry(window, textvariable=text_area, width=50)
+textline.pack()
+
+exit_button = Button(window, text="Exit", command=window.quit)
+exit_button.pack()
+
+#starting window loop which end when the window gets closed
+window.mainloop()
+
+# options = [
+#     {1: "random quotes"},
+#     {2: "all quotes"}
+# ]
+
+# print(options)
+# user_choice = input("Hello user ! Pick an option please: ")
+
+try :
+    val = int(user_choice)
+    if val == 1:
+        print("random quote")
+        rand_quote()
+    elif val == 2:
+        print("all quotes")
+        all_quotes()
+except ValueError:
+    print("Please enter a number, not a string")
+    user_choice = input("Hello user ! Pick an option please: ")
+
+# ideas :
+    # create a game : - you have to game who says which quote (lvl 1)
+    #                 - you have to guess which season of game of thrones (lvl 2)
+    # show one random quote whenever terminal boots
+    # create a file to store scores
+    # add background img to the window object

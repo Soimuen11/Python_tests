@@ -1,4 +1,4 @@
-### Game of Thrones
+### Game of Thrones QUOTES ###
 
 got_quotes = [
         {
@@ -100,18 +100,9 @@ got_quotes = [
         {
             "quote": "It does not matter what we want. Once we get it, we want something else.", 
             "author":"Littlefinger"
-            },
+        },
         {
             "quote": "It's dangerous being free. But most come to like the taste of it", 
             "author":"Ygritte"
         }
-    ]
-
-### STAR WARS ###
-
-star_wars_quotes = [
-        {
-            "quote": "Do, or not do. There is no try", 
-            "author": "Master Yoda"
-        }
-    ]
+]
