@@ -12,8 +12,8 @@ window.tracer(0)
 ### SNAKE SETUP ###
 snake = turtle.Turtle()
 snake.speed(0)
-snake.shape("circle")
-snake.color("purple")
+snake.shape("square")
+snake.color("white")
 snake.penup()
 # snake position / center of screen
 snake.goto(0,0)
@@ -22,13 +22,26 @@ snake.direction = "stop"
 # FOOD SETUP
 food = turtle.Turtle()
 food.speed(0)
-food.shape("triangle")
+food.shape("circle")
 food.color("red")
 food.penup()
 snake.goto(0,0)
 
 ### SNAKE TAIL###
 tail = []
+
+### GAME INFO###
+game_info = turtle.Turtle()
+game_info.speed(0)
+game_info.shape("square")
+game_info.color("green")
+game_info.penup()
+game_info.hideturtle()
+game_info.goto(0, 300)
+game_info.write("Score: 0  High Score: 0", align="center", font=("Courier", 24, "normal"))
+
+score = 0
+high_score = 0
 
 # FUNCTIONS
 def move():
@@ -81,6 +94,10 @@ while True:
             segment.goto(1000, 1000)
         # re-init the tail
         tail = []
+        # reset score 
+        score = 0
+        game_info.clear()
+        game_info.write("Score: 0  High Score: 0", align="center", font=("Courier", 24, "normal"))
 
     # checking for collision b/w food and snake
     if snake.distance(food) < 20:
@@ -91,10 +108,17 @@ while True:
         #add a tail
         new_tail = turtle.Turtle()
         new_tail.speed(0)
-        new_tail.shape("circle")
-        new_tail.color("orange")
+        new_tail.shape("square")
+        new_tail.color("grey")
         new_tail.penup()
         tail.append(new_tail)
+
+        #increase score when eating food
+        score += 10
+        if score > high_score:
+            high_score = score
+            game_info.clear()
+            game_info.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal"))
 
     # move last piece of the tail first in reverse order
     for i in range(len(tail)-1, 0, -1):
@@ -107,6 +131,22 @@ while True:
         x = snake.xcor()
         y = snake.ycor()
         tail[0].goto(x, y)
+
     move()
+
+    # check for head collision with the body segments
+    for segment in tail:
+        if segment.distance(snake) < 20:
+            time.sleep(1)
+            snake.goto(0,0)
+            snake.direction = "stop"
+            #hide the tail segments
+            for segment in tail:
+                segment.goto(1000, 1000)
+            tail = []
+            score = 0
+            game_info.clear()
+            game_info.write("Score: 0  High Score: 0", align="center", font=("Courier", 24, "normal"))
+
     time.sleep(delay)
 window.mainloop()
